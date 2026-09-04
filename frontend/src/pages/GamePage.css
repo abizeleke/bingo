@@ -1,0 +1,975 @@
+/* ============================================================
+   PREMIUM BINGO CASINO
+============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at 50% -10%, #33204f 0%, #120e1b 35%, #050508 75%);
+}
+
+/* ============================================================
+   SCREEN
+============================================================ */
+
+.screen {
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 0%, rgba(94, 44, 133, 0.22), transparent 38%);
+  position: relative;
+}
+
+/* ============================================================
+   TOP CARDS - 7%
+============================================================ */
+
+.card-one,
+.card-two {
+  flex: 0 0 7%;
+  min-height: 0;
+}
+
+.casino-top-card {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 12px;
+  border: 1px solid #594326;
+  background: linear-gradient(135deg, #17131c, #0b0a0f);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  padding: 4px 8px;
+}
+
+.casino-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.casino-info span {
+  color: #9b8a6a;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.casino-info strong {
+  color: #f3eee4;
+  font-size: clamp(11px, 3vw, 15px);
+  font-weight: 900;
+}
+
+.casino-info .money {
+  color: #e9bd52;
+}
+
+.timer-value {
+  color: #50d79b !important;
+}
+
+.gold-separator {
+  width: 1px;
+  height: 22px;
+  background: linear-gradient(transparent, #c99a3d, transparent);
+}
+
+/* ============================================================
+   ENTRY
+============================================================ */
+
+.selector-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.selected-panel {
+  flex: 0 0 25%;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   CASINO PANEL
+============================================================ */
+
+.casino-panel {
+  min-width: 0;
+  border-radius: 13px;
+  border: 1px solid #342d3c;
+  background: linear-gradient(145deg, #14121b, #09090d);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+/* ============================================================
+   PANEL HEADER
+============================================================ */
+
+.panel-header {
+  height: 39px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-bottom: 1px solid #29232f;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.7px;
+  color: #f0e7d5;
+}
+
+.panel-header small {
+  color: #746b7e;
+  font-size: 7px;
+}
+
+.card-counter {
+  min-width: 34px;
+  height: 23px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #9b6b20, #5c3d0d);
+  border: 1px solid #d5a943;
+  color: #fff5d8;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+/* ============================================================
+   NUMBER SCROLL
+============================================================ */
+
+.number-scroll {
+  height: calc(100% - 39px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #65502b transparent;
+}
+
+.number-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.number-scroll::-webkit-scrollbar-thumb {
+  background: #65502b;
+  border-radius: 20px;
+}
+
+/* ============================================================
+   NUMBER GRID - 7 PER ROW
+============================================================ */
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.casino-number {
+  width: 100%;
+  aspect-ratio: 1.15;
+  min-height: 23px;
+  border-radius: 6px;
+  border: 1px solid #292734;
+  background: radial-gradient(circle at 35% 25%, #292532, #111018 70%);
+  color: #aaa4b3;
+  font-size: clamp(8px, 2.2vw, 12px);
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.15s, border 0.15s;
+}
+
+.casino-number:active {
+  transform: scale(0.92);
+}
+
+/* USER SELECTED */
+.casino-number.user-card-number {
+  color: #fff;
+  border-color: #d6a63f;
+  background: radial-gradient(circle at 30% 20%, #ffe28a, #a46e17 55%, #513408);
+  box-shadow: 0 0 9px rgba(214, 166, 63, 0.38);
+}
+
+/* BOT CARD */
+.casino-number.bot-card-number {
+  color: #ff8d8d;
+  border-color: #7e252b;
+  background: radial-gradient(circle, #52151c, #1a0b0e);
+}
+
+.casino-number:disabled {
+  opacity: 0.85;
+}
+
+/* ============================================================
+   SELECTED CARDS - ENTRY MODE (FIT INSIDE SECTION)
+============================================================ */
+
+.selected-casino-cards {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.entry-bingo-wrapper {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 33.33%;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+
+.entry-bingo-wrapper .casino-bingo-card {
+  width: 100%;
+  max-width: 100%;
+  padding: 3px;
+  aspect-ratio: 1 / 1.1;
+}
+
+.entry-bingo-wrapper .bingo-grid,
+.entry-bingo-wrapper .bingo-letters {
+  gap: 1.5px;
+}
+
+.entry-bingo-wrapper .bingo-number,
+.entry-bingo-wrapper .bingo-letter {
+  font-size: clamp(5px, 1.4vw, 9px);
+  border-radius: 2px;
+}
+
+/* When 1 card selected */
+.entry-bingo-wrapper:only-child {
+  max-width: 50%;
+}
+
+/* When 2 cards selected */
+.entry-bingo-wrapper:first-child:nth-last-child(2),
+.entry-bingo-wrapper:last-child:nth-child(2) {
+  max-width: 40%;
+}
+
+/* When 3 cards selected - each gets 33% */
+.entry-bingo-wrapper:first-child:nth-last-child(3),
+.entry-bingo-wrapper:nth-child(2):nth-last-child(2),
+.entry-bingo-wrapper:last-child:nth-child(3) {
+  max-width: 33.33%;
+}
+
+/* ============================================================
+   BINGO CARD
+============================================================ */
+
+.casino-bingo-card {
+  width: 100%;
+  max-width: 260px;
+  padding: 4px;
+  border-radius: 9px;
+  border: 1px solid #624b25;
+  background: linear-gradient(145deg, #17141b, #08080c);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.45);
+}
+
+.bingo-letters,
+.bingo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.bingo-letters {
+  margin-bottom: 2px;
+}
+
+.bingo-letter {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  color: white;
+  font-size: clamp(7px, 2vw, 12px);
+  font-weight: 1000;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.letter-B {
+  background: linear-gradient(145deg, #287bd6, #174b8a);
+}
+.letter-I {
+  background: linear-gradient(145deg, #7d42c7, #482279);
+}
+.letter-N {
+  background: linear-gradient(145deg, #ca3b72, #76203f);
+}
+.letter-G {
+  background: linear-gradient(145deg, #c98a24, #78500d);
+}
+.letter-O {
+  background: linear-gradient(145deg, #269a68, #12563b);
+}
+
+.bingo-number {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: #121119;
+  border: 1px solid #25222d;
+  color: #ddd8e1;
+  font-size: clamp(7px, 2.4vw, 13px);
+  font-weight: 800;
+}
+
+.bingo-number-marked {
+  background: radial-gradient(circle at 35% 25%, #71e4ae, #15945d 55%, #075033);
+  border-color: #42e59a;
+  color: white;
+  box-shadow: 0 0 6px rgba(66, 229, 154, 0.35);
+}
+
+.free-space {
+  background: radial-gradient(circle, #e0ae42, #805912);
+  color: white;
+  border-color: #e3b84f;
+}
+
+/* EMPTY */
+.empty-casino {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #5d5765;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+}
+
+.empty-icon {
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px dashed #55472d;
+  color: #a97a24;
+  font-size: 13px;
+}
+
+/* ============================================================
+   GAME AREA
+============================================================ */
+
+.game-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.game-screen .casino-game-area {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.casino-game-area {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 0.85fr);
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 13px;
+  border: 1px solid #342d3c;
+  background: linear-gradient(145deg, #14121b, #07070a);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* ============================================================
+   LEFT - CALLED AREA
+============================================================ */
+
+.called-area {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.game-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1px 4px 5px;
+  flex-shrink: 0;
+}
+
+.game-title span {
+  display: block;
+  color: #a67a2b;
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.game-title h2 {
+  margin: 1px 0 0;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.game-title strong {
+  color: #e2b84e;
+  font-size: 9px;
+}
+
+/* RECENT */
+.recent-area {
+  flex-shrink: 0;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  border: 1px solid #3a3020;
+  background: linear-gradient(145deg, #17130c, #0c0b0a);
+}
+
+.recent-heading {
+  color: #927543;
+  font-size: 6px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
+}
+
+.recent-list {
+  display: flex;
+  gap: 4px;
+}
+
+.casino-ball {
+  flex: 1;
+  min-width: 0;
+  height: 31px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 32% 25%, #36333e, #111018 68%);
+  border: 1px solid #45404d;
+  color: #c5bfcc;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.4);
+}
+
+.casino-ball small {
+  font-size: 5px;
+  font-weight: 900;
+  color: #817a88;
+}
+
+.casino-ball strong {
+  font-size: 10px;
+}
+
+.newest-ball {
+  background: radial-gradient(circle at 30% 20%, #ffea96, #c68a1c 48%, #603b07);
+  border-color: #e4b74d;
+  color: white;
+  box-shadow: 0 0 14px rgba(226, 184, 78, 0.45);
+}
+
+.newest-ball small {
+  color: #fff1ba;
+}
+
+.waiting-call {
+  width: 100%;
+  text-align: center;
+  color: #5d5765;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* 1-75 BOARD */
+.casino-board {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 3px;
+  overflow: hidden;
+}
+
+.casino-column {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 21px repeat(15, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.casino-column-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: white;
+  font-size: 9px;
+  font-weight: 1000;
+}
+
+.column-B {
+  background: #236fbd;
+}
+.column-I {
+  background: #7040ae;
+}
+.column-N {
+  background: #a52e5d;
+}
+.column-G {
+  background: #aa761c;
+}
+.column-O {
+  background: #237d55;
+}
+
+.board-ball {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  background: #0e0d13;
+  border: 1px solid #211e28;
+  color: #625d69;
+  font-size: clamp(6px, 1.9vw, 10px);
+  font-weight: 800;
+}
+
+.board-ball-called {
+  color: #ffffff;
+  border-color: #38c9ff;
+  background: radial-gradient(circle at 30% 20%, #7de3ff, #168ac2 55%, #073d63);
+  box-shadow: 0 0 8px rgba(56, 201, 255, 0.45);
+  font-weight: 900;
+}
+
+/* ============================================================
+   DIVIDER
+============================================================ */
+
+.casino-divider {
+  width: 1px;
+  background: linear-gradient(transparent, #72582d, #72582d, transparent);
+}
+
+/* ============================================================
+   RIGHT - MY CARDS (GAME MODE - FIT INSIDE SECTION)
+============================================================ */
+
+.my-cards-area {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.my-cards-title {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 3px 6px;
+}
+
+.my-cards-title span {
+  color: #eee7d9;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.my-cards-title small {
+  color: #9b792e;
+  font-size: 6px;
+}
+
+.my-cards-scroll {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 2px;
+  overflow: hidden;
+}
+
+.no-cards-message {
+  color: #5d5765;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.game-card-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 0;
+  min-height: 0;
+  justify-content: center;
+}
+
+.game-card-wrapper .casino-bingo-card {
+  width: 100%;
+  max-width: 220px;
+  padding: 3px;
+  aspect-ratio: 1 / 1.1;
+}
+
+.game-card-wrapper .bingo-grid,
+.game-card-wrapper .bingo-letters {
+  gap: 1.5px;
+}
+
+.game-card-wrapper .bingo-number,
+.game-card-wrapper .bingo-letter {
+  font-size: clamp(5px, 1.2vw, 9px);
+  border-radius: 2px;
+}
+
+/* When multiple cards in game mode - reduce size */
+.my-cards-scroll .game-card-wrapper {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.my-cards-scroll .game-card-wrapper .casino-bingo-card {
+  max-width: 200px;
+}
+
+/* 2 cards in game mode */
+.my-cards-scroll .game-card-wrapper:first-child:nth-last-child(2) .casino-bingo-card,
+.my-cards-scroll .game-card-wrapper:last-child:nth-child(2) .casino-bingo-card {
+  max-width: 180px;
+}
+
+/* 3 cards in game mode */
+.my-cards-scroll .game-card-wrapper:first-child:nth-last-child(3) .casino-bingo-card,
+.my-cards-scroll .game-card-wrapper:nth-child(2):nth-last-child(2) .casino-bingo-card,
+.my-cards-scroll .game-card-wrapper:last-child:nth-child(3) .casino-bingo-card {
+  max-width: 160px;
+}
+
+.game-card-number {
+  margin-bottom: 2px;
+  color: #927b51;
+  font-size: 6px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   POPUP - COVERS ONLY GAME AREA
+============================================================ */
+
+.casino-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(7px);
+  border-radius: 13px;
+}
+
+/* START POPUP */
+.start-popup {
+  width: min(88vw, 330px);
+  min-height: 285px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  border: 1px solid #9a742e;
+  background: radial-gradient(circle at 50% 0%, #2d2040, #100e16 65%);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(183, 133, 40, 0.12);
+}
+
+.casino-crown {
+  color: #e2b74d;
+  font-size: 28px;
+  margin-bottom: 2px;
+}
+
+.popup-small {
+  color: #aa8a4e;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.start-popup h1 {
+  margin: 7px 0;
+  color: #fff8e8;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.gold-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d8aa45, transparent);
+  margin-bottom: 15px;
+}
+
+.big-countdown {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 3px solid #d4a642;
+  background: radial-gradient(circle at 32% 20%, #ffe894, #a76f16 50%, #4d3006);
+  color: white;
+  font-size: 60px;
+  font-weight: 1000;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 30px rgba(216, 170, 69, 0.3);
+}
+
+.popup-bottom {
+  margin-top: 17px;
+  color: #8b8292;
+  font-size: 9px;
+}
+
+.popup-bottom b {
+  color: #d7ad50;
+}
+
+/* WINNER POPUP */
+.winner-popup {
+  width: min(90vw, 355px);
+  max-height: 92dvh;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 22px;
+  border: 1px solid #b88b32;
+  background: radial-gradient(circle at 50% 0%, #35250e, #100e0b 60%, #080809);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(226, 183, 72, 0.13);
+  overflow: hidden;
+}
+
+.winner-crown {
+  font-size: 28px;
+  margin-bottom: 1px;
+}
+
+.winner-label {
+  color: #e3b94f;
+  font-size: 9px;
+  font-weight: 1000;
+  letter-spacing: 1.8px;
+}
+
+.winner-popup h1 {
+  margin: 4px 0;
+  font-size: 21px;
+  color: #fff;
+}
+
+.winner-money {
+  color: #4de09a;
+  font-size: 21px;
+  font-weight: 1000;
+  text-shadow: 0 0 12px rgba(77, 224, 154, 0.25);
+}
+
+.winner-badge {
+  margin-top: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #715013;
+  border: 1px solid #d1a13c;
+  color: #ffe49a;
+  font-size: 7px;
+  font-weight: 1000;
+}
+
+.winner-card-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.winner-card-wrap .casino-bingo-card {
+  max-width: 180px;
+}
+
+.winner-card {
+  border-color: #d8ad46;
+  box-shadow: 0 0 20px rgba(218, 174, 69, 0.2);
+}
+
+.next-game {
+  margin-top: 8px;
+  color: #77707b;
+  font-size: 8px;
+}
+
+.next-game b {
+  color: #d8ad48;
+}
+
+/* BLANK */
+.blank-area {
+  flex: 1;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-height: 650px) {
+  .screen {
+    padding: 5px;
+    gap: 4px;
+  }
+  .casino-top-card {
+    border-radius: 9px;
+  }
+  .panel-header {
+    height: 34px;
+  }
+  .number-scroll {
+    height: calc(100% - 34px);
+    padding: 4px;
+  }
+  .number-grid {
+    gap: 3px;
+  }
+  .casino-number {
+    min-height: 21px;
+    font-size: 8px;
+  }
+  .selected-panel {
+    flex-basis: 24%;
+  }
+  .recent-area {
+    padding: 3px;
+    margin-bottom: 3px;
+  }
+  .casino-ball {
+    height: 27px;
+  }
+  .casino-column {
+    grid-template-rows: 18px repeat(15, minmax(0, 1fr));
+  }
+  .start-popup {
+    min-height: 245px;
+  }
+  .big-countdown {
+    width: 85px;
+    height: 85px;
+    font-size: 45px;
+  }
+  .winner-popup {
+    padding: 10px;
+  }
+  .entry-bingo-wrapper {
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 340px) {
+  .number-grid {
+    gap: 2px;
+  }
+  .casino-number {
+    font-size: 7px;
+  }
+  .bingo-grid,
+  .bingo-letters {
+    gap: 1px;
+  }
+  .bingo-number,
+  .bingo-letter {
+    font-size: 7px;
+  }
+  .casino-board {
+    gap: 2px;
+  }
+  .casino-column {
+    gap: 1px;
+  }
+  .board-ball {
+    font-size: 6px;
+  }
+  .entry-bingo-wrapper {
+    flex: 1 1 0;
+  }
+}

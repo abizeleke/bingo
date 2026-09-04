@@ -1,0 +1,338 @@
+/* Profile Page Container */
+.profile-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Profile Header */
+.profile-header {
+  text-align: center;
+  padding: 30px 20px;
+  background: linear-gradient(145deg, #111a2a, #1a2235);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #13b96d, #0d8a52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 20px rgba(19, 185, 109, 0.2);
+}
+
+.profile-header h2 {
+  color: #f0f4ff;
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.profile-header p {
+  color: #8892a0;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Profile Stats */
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0f4ff;
+}
+
+.stat-label {
+  display: block;
+  font-size: 11px;
+  color: #5a6680;
+  margin-top: 4px;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.btn-login, .btn-register, .btn-logout {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #13b96d, #0d8a52);
+  color: white;
+}
+
+.btn-login:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(19, 185, 109, 0.3);
+}
+
+.btn-login:active {
+  transform: scale(0.98);
+}
+
+.btn-register {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-register:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+}
+
+.btn-logout {
+  background: rgba(220, 50, 50, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(220, 50, 50, 0.2);
+  margin-bottom: 24px;
+}
+
+.btn-logout:hover {
+  background: rgba(220, 50, 50, 0.25);
+}
+
+/* Profile Menu */
+.profile-menu {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.menu-icon {
+  font-size: 18px;
+  margin-right: 14px;
+}
+
+.menu-item span:nth-child(2) {
+  flex: 1;
+  color: #d4dcec;
+  font-size: 14px;
+}
+
+.menu-value {
+  color: #5a6680;
+  font-size: 13px;
+  margin-right: 8px;
+}
+
+.menu-arrow {
+  color: #3a4658;
+  font-size: 18px;
+}
+
+/* Version */
+.profile-version {
+  text-align: center;
+  color: #2a3648;
+  font-size: 12px;
+  padding: 10px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: #1a2235;
+  padding: 30px 24px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #5a6680;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #f0f4ff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-content h3 {
+  color: #f0f4ff;
+  font-size: 22px;
+  text-align: center;
+  margin: 0 0 6px;
+}
+
+.modal-content p {
+  color: #5a6680;
+  text-align: center;
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content input {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f0f4ff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.modal-content input:focus {
+  border-color: #13b96d;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 20px rgba(19, 185, 109, 0.05);
+}
+
+.modal-content input::placeholder {
+  color: #3a4658;
+}
+
+.modal-content button[type="submit"] {
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #13b96d, #0d8a52);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 4px;
+}
+
+.modal-content button[type="submit"]:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(19, 185, 109, 0.2);
+}
+
+.modal-content button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-content button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .profile-page {
+    padding: 16px 12px 90px;
+  }
+  
+  .profile-avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+  }
+  
+  .profile-stats {
+    gap: 6px;
+  }
+  
+  .stat-item {
+    padding: 10px 6px;
+  }
+  
+  .stat-value {
+    font-size: 15px;
+  }
+  
+  .modal-content {
+    padding: 24px 16px;
+  }
+}

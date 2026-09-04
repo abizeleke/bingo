@@ -1,0 +1,265 @@
+.wallet-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Balance Card */
+.balance-card {
+  background: linear-gradient(145deg, #111a2a, #1a2235);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.balance-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.balance-amount {
+  font-size: 36px;
+  font-weight: 800;
+  color: #f0f4ff;
+  letter-spacing: 0.5px;
+}
+
+.balance-amount::after {
+  content: ' ETB';
+  font-size: 18px;
+  color: #5a6680;
+  font-weight: 600;
+}
+
+.balance-label {
+  color: #5a6680;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.balance-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-deposit, .btn-withdraw {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-deposit {
+  background: linear-gradient(135deg, #13b96d, #0d8a52);
+  color: white;
+}
+
+.btn-deposit:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(19, 185, 109, 0.2);
+}
+
+.btn-withdraw {
+  background: rgba(255,255,255,0.06);
+  color: #f0f4ff;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.btn-withdraw:hover {
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.02);
+}
+
+/* Transactions */
+.transactions-section h3 {
+  color: #f0f4ff;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.transactions-list {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.tx-icon {
+  font-size: 24px;
+  margin-right: 14px;
+}
+
+.tx-info {
+  flex: 1;
+}
+
+.tx-type {
+  color: #f0f4ff;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.tx-date {
+  color: #5a6680;
+  font-size: 12px;
+}
+
+.tx-amount {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.no-transactions {
+  padding: 30px;
+  text-align: center;
+  color: #5a6680;
+  font-size: 14px;
+}
+
+/* Withdraw Info */
+.withdraw-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 4px;
+  color: #5a6680;
+  font-size: 13px;
+}
+
+.withdraw-info span:last-child {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #1a2235;
+  padding: 30px 24px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #5a6680;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-content h3 {
+  color: #f0f4ff;
+  font-size: 20px;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.04);
+  color: #f0f4ff;
+  font-size: 14px;
+  outline: none;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  border-color: #13b96d;
+}
+
+.modal-content input::placeholder {
+  color: #3a4658;
+}
+
+.modal-content select option {
+  background: #1a2235;
+  color: #f0f4ff;
+}
+
+.modal-content button[type="submit"] {
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #13b96d, #0d8a52);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 4px;
+}
+
+.modal-content button[type="submit"]:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(19, 185, 109, 0.2);
+}
+
+.modal-content button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: rgba(220, 50, 50, 0.12);
+  color: #ff6b6b;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 8px;
+}
